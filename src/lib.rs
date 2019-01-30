@@ -1,4 +1,7 @@
+#![feature(raw)]
+
 extern crate libc;
 
-mod poller;
+pub mod poller;
+pub mod event_handler;
 
