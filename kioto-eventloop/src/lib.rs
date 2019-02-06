@@ -1,5 +1,3 @@
-#![feature(raw)]
-
 extern crate libc;
 
 pub mod poller;

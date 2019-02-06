@@ -75,3 +75,47 @@ pub fn eventfd(init: u32, flags: i32) -> io::Result<i32> {
         Ok(fd)
     }
 }
+
+pub fn close(fd: i32) -> io::Result<()> {
+    let ret = unsafe { libc::close(fd) };
+    if ret < 0 {
+        Err(io::Error::new(
+            io::ErrorKind::Other,
+            "close file failed"
+        ))
+    } else {
+        Ok(())
+    }
+}
+
+pub fn write(fd: i32, buf: *const libc::c_void, count: usize) -> io::Result<usize> {
+    let n = unsafe {
+        libc::write(fd, buf, count)
+    };
+
+    if n < 0 {
+        Err(io::Error::new(
+            io::ErrorKind::Other,
+            "write failed"
+            ))
+    } else {
+        Ok(n as usize)
+    }
+}
+
+pub fn read(fd: i32, buf: *mut libc::c_void, size: usize) -> io::Result<usize> {
+    let n = unsafe {
+        libc::read(fd, buf, size)
+    };
+
+    if n < 0 {
+        Err(io::Error::new(
+            io::ErrorKind::Other,
+            "read failed"
+        ))
+    } else {
+        Ok(n as usize)
+    }
+
+
+}
